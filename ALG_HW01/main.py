@@ -24,7 +24,7 @@ height = matrixSize[0]
 width = matrixSize[1]
 # print("Rows - ", height, "\nColumns - ", width)
 
-matrixTail = [0] * width * height * 4
+matrixTail = [MIN_INT] * width * height * 4
 
 # find max tail for each item in whole matrix and save it to the list matrixTail
 # matrixTail['line * width * 4 + pos * 4 + 0' - right tail
@@ -85,12 +85,12 @@ for h in range(height):
         del(maxCurr)
         del(maximums)
 
-# for i in range(len(matrixTail)):
-#     print(matrixTail[i], end=' ')
-#     if (i + 1) % 4 == 0:
-#         print(' ', end=' ')
-#     if (i + 1) % (width * 4) == 0:
-#         print()
+for i in range(len(matrixTail)):
+    print(matrixTail[i], end=' ')
+    if (i + 1) % 4 == 0:
+        print(' ', end=' ')
+    if (i + 1) % (width * 4) == 0:
+        print()
 
 sumMax = MIN_INT
 # find max sum for all fields that have the stem field in the vertical direction
@@ -124,11 +124,13 @@ for w in range(width):
                 tmp = min(rightTails)
                 sums[0] -= tmp
                 rightTails.remove(tmp)
+                numOfRightTails -= 1
 
             if numOfLeftTails > 3:
                 tmp = min(leftTails)
                 sums[1] -= tmp
                 leftTails.remove(tmp)
+                numOfLeftTails -= 1
 
             if fieldHeight >= 3:
                 sumCurr = max(sums)
@@ -168,11 +170,13 @@ for h in range(height):
                 tmp = min(upperTails)
                 sums[0] -= tmp
                 upperTails.remove(tmp)
+                numOfUpperTails -= 1
 
             if numOfBottomTails > 3:
                 tmp = min(bottomTails)
                 sums[1] -= tmp
                 bottomTails.remove(tmp)
+                numOfBottomTails -= 1
 
             if fieldWidth >= 3:
                 sumCurr = max(sums)
